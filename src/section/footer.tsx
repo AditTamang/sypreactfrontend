@@ -118,7 +118,7 @@ export default function FooterSection() {
                   <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641" cx="0" cy="0" r="1"
                     gradientUnits="userSpaceOnUse" gradientTransform="translate(512 512) rotate(90) scale(512)">
                     <stop stopColor="#7775D6"></stop>
-                    <stop offset="1" stopColor="#7ED321" stop-opacity="0"></stop>
+                    <stop offset="1" stopColor="#7ED321" stop-pacity="0"></stop>
                   </radialGradient>
                 </defs>
               </svg>

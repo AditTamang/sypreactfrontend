@@ -1,330 +1,92 @@
 "use client"
-// The exported code uses Tailwind CSS. Install Tailwind CSS in your dev environment to ensure all styles work.
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-const App: React.FC = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
-  const [activeTab, setActiveTab] = useState("user");
+
+import type React from "react"
+
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
+import Link from "next/link"
+import { loginUser } from "@/action/user"
+
+export default function LoginPage() {
+  const router = useRouter()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setIsLoading(true)
+    setError("")
+
+    try {
+      const result = await loginUser(email, password)
+
+      if (result.success) {
+        router.push("/dashboard")
+        router.refresh()
+      } else {
+        setError(result.error || "Login failed")
+      }
+    } catch (err) {
+      setError("An unexpected error occurred")
+      console.error(err)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
-    <div className="min-h-[1024px] bg-gradient-to-br from-blue-50 to-white">
-     
-      <div className="pt-16 flex min-h-screen">
-        <div className="flex-1 bg-gradient-to-br from-teal-500 to-blue-500 hidden lg:flex items-center justify-center">
-          <img
-            src="https://public.readdy.ai/ai/img_res/1c4f4fff62b100d0ae857598ef631931.jpg"
-            alt="Healthcare Illustration"
-            className="max-w-2xl"
-          />
-        </div>
-        <div className="flex-1 flex items-center justify-center p-8">
-          <Card className="w-full max-w-md p-8">
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Log In</h1>
-              <p className="text-gray-500">
-                Select your Log In method from the following:
-              </p>
+    <div className="flex justify-center items-center min-h-screen bg-gray-50">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle className="text-2xl text-center">Login</CardTitle>
+          <CardDescription className="text-center">Enter your credentials to access your account</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {error && <div className="bg-red-50 text-red-500 p-3 rounded-md text-sm">{error}</div>}
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                required
+              />
             </div>
-            <Tabs
-              defaultValue="user"
-              className="w-full"
-              onValueChange={setActiveTab}
-            >
-              <TabsList className="grid w-full grid-cols-3 mb-8">
-                <TabsTrigger value="user" className="!rounded-button">
-                  <i className="fas fa-user mr-2"></i>
-                  User
-                </TabsTrigger>
-                <TabsTrigger value="doctor" className="!rounded-button">
-                  <i className="fas fa-user-md mr-2"></i>
-                  Doctor
-                </TabsTrigger>
-                <TabsTrigger value="merchant" className="!rounded-button">
-                  <i className="fas fa-store mr-2"></i>
-                  Merchant
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="user">
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email / Username
-                    </label>
-                    <Input
-                      type="text"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      className="w-full border-gray-300"
-                      placeholder={
-                        username.startsWith("DR-")
-                          ? "Enter your doctor ID"
-                          : "Enter your username"
-                      }
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Password
-                    </label>
-                    <Input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="w-full border-gray-300"
-                      placeholder="Enter your password"
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Checkbox
-                        id="keepLoggedIn"
-                        checked={keepLoggedIn}
-                        onCheckedChange={(checked) =>
-                          setKeepLoggedIn(checked as boolean)
-                        }
-                      />
-                      <label
-                        htmlFor="keepLoggedIn"
-                        className="ml-2 text-sm text-gray-600"
-                      >
-                        Keep me Logged In
-                      </label>
-                    </div>
-                    <a
-                      href="#"
-                      className="text-sm text-teal-500 hover:text-teal-600"
-                    >
-                      Forgot Password?
-                    </a>
-                  </div>
-                  <Button className="w-full !rounded-button bg-teal-500 hover:bg-teal-600">
-                    Log In
-                  </Button>
-                </div>
-                <div className="mt-8 flex items-center gap-4">
-                  <div className="flex-1 border-t border-gray-200"></div>
-                  <span className="text-sm text-gray-500">or</span>
-                  <div className="flex-1 border-t border-gray-200"></div>
-                </div>
-                <div className="mt-8">
-                  <div className="flex items-center gap-4">
-                    <img
-                      src="https://public.readdy.ai/ai/img_res/7a721d1776e51d7141a5fdf98c341247.jpg"
-                      alt="Doctor Icon"
-                      className="w-12 h-12"
-                    />
-                    <div>
-                      <h3 className="font-semibold text-gray-900">
-                        Register as a Doctor?
-                      </h3>
-                      <p className="text-sm text-gray-500">
-                        Verify your information with us in order to Get Started
-                      </p>
-                    </div>
-                    <Button
-                      variant="outline"
-                      className="ml-auto !rounded-button"
-                    >
-                      Start
-                    </Button>
-                  </div>
-                </div>
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email / Username
-                    </label>
-                    <Input
-                      type="text"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      className="w-full border-gray-300"
-                      placeholder="Enter your username"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Password
-                    </label>
-                    <Input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="w-full border-gray-300"
-                      placeholder="Enter your password"
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Checkbox
-                        id="keepLoggedIn"
-                        checked={keepLoggedIn}
-                        onCheckedChange={(checked) =>
-                          setKeepLoggedIn(checked as boolean)
-                        }
-                      />
-                      <label
-                        htmlFor="keepLoggedIn"
-                        className="ml-2 text-sm text-gray-600"
-                      >
-                        Keep me Logged In
-                      </label>
-                    </div>
-                    <a
-                      href="#"
-                      className="text-sm text-teal-500 hover:text-teal-600"
-                    >
-                      Forgot Password?
-                    </a>
-                  </div>
-                  <Button className="w-full !rounded-button bg-teal-500 hover:bg-teal-600">
-                    Log In
-                  </Button>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="doctor">
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Doctor ID
-                    </label>
-                    <Input
-                      type="text"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      className="w-full border-gray-300"
-                      placeholder="Enter your doctor ID"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Password
-                    </label>
-                    <Input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="w-full border-gray-300"
-                      placeholder="Enter your password"
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Checkbox
-                        id="keepLoggedIn"
-                        checked={keepLoggedIn}
-                        onCheckedChange={(checked) =>
-                          setKeepLoggedIn(checked as boolean)
-                        }
-                      />
-                      <label
-                        htmlFor="keepLoggedIn"
-                        className="ml-2 text-sm text-gray-600"
-                      >
-                        Keep me Logged In
-                      </label>
-                    </div>
-                    <a
-                      href="#"
-                      className="text-sm text-teal-500 hover:text-teal-600"
-                    >
-                      Forgot Password?
-                    </a>
-                  </div>
-                  <Button className="w-full !rounded-button bg-teal-500 hover:bg-teal-600">
-                    Log In
-                  </Button>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="merchant">
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Merchant ID
-                    </label>
-                    <Input
-                      type="text"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      className="w-full border-gray-300"
-                      placeholder="Enter your merchant ID"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Password
-                    </label>
-                    <Input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="w-full border-gray-300"
-                      placeholder="Enter your password"
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Checkbox
-                        id="keepLoggedIn"
-                        checked={keepLoggedIn}
-                        onCheckedChange={(checked) =>
-                          setKeepLoggedIn(checked as boolean)
-                        }
-                      />
-                      <label
-                        htmlFor="keepLoggedIn"
-                        className="ml-2 text-sm text-gray-600"
-                      >
-                        Keep me Logged In
-                      </label>
-                    </div>
-                    <a
-                      href="#"
-                      className="text-sm text-teal-500 hover:text-teal-600"
-                    >
-                      Forgot Password?
-                    </a>
-                  </div>
-                  <Button className="w-full !rounded-button bg-teal-500 hover:bg-teal-600">
-                    Log In
-                  </Button>
-                </div>
-              </TabsContent>
-            </Tabs>
-
-            {activeTab === "doctor" && (
-              <div className="mt-8 flex items-center gap-4">
-                <img
-                  src="https://readdy.ai/api/search-image?query=friendly cartoon doctor character icon smiling medical professional avatar illustration&width=60&height=60&seq=18&orientation=squarish"
-                  alt="Doctor Icon"
-                  className="w-12 h-12"
-                />
-                <div>
-                  <h3 className="font-semibold text-gray-900">
-                    Register as a Doctor?
-                  </h3>
-                  <p className="text-sm text-gray-500">
-                    Verify your information with us in order to Get Started
-                  </p>
-                </div>
-                <Button variant="outline" className="ml-auto !rounded-button">
-                  Start
-                </Button>
-              </div>
-            )}
-          </Card>
-        </div>
-      </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? "Logging in..." : "Login"}
+            </Button>
+          </form>
+        </CardContent>
+        <CardFooter className="flex justify-center">
+          <p className="text-sm text-gray-500">
+            Don&apos;t have an account?{" "}
+            <Link href="/register" className="text-primary hover:underline">
+              Register
+            </Link>
+          </p>
+        </CardFooter>
+      </Card>
     </div>
-  );
-};
+  )
+}
 
-export default App;

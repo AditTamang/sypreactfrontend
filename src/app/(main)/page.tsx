@@ -17,25 +17,21 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-[1024px] bg-white">
-      {/* Header */}
-      
-
-      {/* Hero Section */}
       <div className="relative pt-16">
         <div
           className="h-[600px] bg-cover bg-center"
           style={{
-            backgroundImage: `url('https://public.readdy.ai/ai/img_res/b33d2c9cbd8efa38f2952b480920cadb.jpg')`,
+            backgroundImage: `url('/image/dai.png')`,
           }}
         >
           <div className="max-w-[1440px] mx-auto px-6 h-full flex items-center">
             <div className="max-w-xl">
               <h1 className="text-5xl font-bold text-white mb-6">
-                The best Doctor with the best treatments
+                MedDoc
               </h1>
-              <p className="text-xl text-white/90 mb-8">
-                Experience world-class healthcare with our team of expert
-                physicians and state-of-the-art facilities.
+              <p className="text-2xl text-green/190 mb-8">
+                Experience world-className healthcare with our team of expert
+                physicians and the best Doctor gives the least medicine.
               </p>
               <Button className="!rounded-button text-lg px-8 py-6">
                 Contact Us
@@ -55,13 +51,13 @@ const App: React.FC = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
               <div className="aspect-video mb-4 overflow-hidden rounded-lg">
                 <img
-                  src="https://public.readdy.ai/ai/img_res/6946745b2901d049262fdae25797e0cd.jpg"
+                  src="/image/liver.jpeg"
                   alt="Comprehensive Package"
                   className="w-full h-full object-cover"
                 />
               </div>
               <h3 className="text-xl font-semibold mb-3">
-                Comprehensive Health Check
+                Liver Function Test
               </h3>
               <p className="text-gray-600 mb-4">
                 Complete full-body examination including vital tests and
@@ -79,7 +75,7 @@ const App: React.FC = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
               <div className="aspect-video mb-4 overflow-hidden rounded-lg">
                 <img
-                  src="https://public.readdy.ai/ai/img_res/9dfd1b7b972a902f5c3c4f8d237cb662.jpg"
+                  src="/image/lipid.jpg"
                   alt="Lipid Profile"
                   className="w-full h-full object-cover"
                 />
@@ -101,7 +97,7 @@ const App: React.FC = () => {
             <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer">
               <div className="aspect-video mb-4 overflow-hidden rounded-lg">
                 <img
-                  src="https://public.readdy.ai/ai/img_res/7bf38c2456be8b9ce763adc3c8c119ac.jpg"
+                  src="/image/bloodCheckUp.jpg"
                   alt="Blood Test"
                   className="w-full h-full object-cover"
                 />
@@ -142,12 +138,12 @@ const App: React.FC = () => {
                 variant="link"
                 className="!rounded-button text-blue-600 pl-0"
               >
-                Click here to know more about us
+                <a href="/about">Click here to know more about us</a>
               </Button>
             </div>
             <div className="overflow-hidden rounded-xl">
               <img
-                src="https://public.readdy.ai/ai/img_res/bbb5404b17427733ca2f4aaf29758fc5.jpg"
+                src="/image/d.jpg"
                 alt="Doctor with Patient"
                 className="w-full h-full object-cover"
               />
@@ -157,35 +153,66 @@ const App: React.FC = () => {
       </section>
 
       {/* Why Us Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-[1440px] mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-16">Why Us?</h2>
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <i className="fas fa-video text-4xl text-blue-600 mb-4"></i>
-              <h3 className="text-xl font-semibold mb-2">
-                Instant Video Consultations
-              </h3>
+      <section className="text-gray-700 body-font mt-10">
+    <div className="flex justify-center text-3xl font-bold text-gray-800 text-center">
+      Why Us?
+    </div>
+    <div className="container px-5 py-12 mx-auto">
+      <div className="flex flex-wrap text-center justify-center">
+        <div className="p-4 md:w-1/4 sm:w-1/2">
+          <div className="px-4 py-6 transform transition duration-500 hover:scale-110">
+            <div className="flex justify-center">
+              <img
+                src="https://image3.jdomni.in/banner/13062021/58/97/7C/E53960D1295621EFCB5B13F335_1623567851299.png?output-format=webp"
+                className="w-32 mb-3" />
             </div>
-            <div>
-              <i className="fas fa-dollar-sign text-4xl text-blue-600 mb-4"></i>
-              <h3 className="text-xl font-semibold mb-2">
-                Affordable and Transparent Pricing
-              </h3>
-            </div>
-            <div>
-              <i className="fas fa-clock text-4xl text-blue-600 mb-4"></i>
-              <h3 className="text-xl font-semibold mb-2">24/7 Availability</h3>
-            </div>
-            <div>
-              <i className="fas fa-user-md text-4xl text-blue-600 mb-4"></i>
-              <h3 className="text-xl font-semibold mb-2">
-                Experienced Doctors
-              </h3>
-            </div>
+            <h2 className="title-font font-regular text-2xl text-gray-900">
+              Instant Video Consultations
+            </h2>
           </div>
         </div>
-      </section>
+
+        <div className="p-4 md:w-1/4 sm:w-1/2">
+          <div className="px-4 py-6 transform transition duration-500 hover:scale-110">
+            <div className="flex justify-center">
+              <img
+                src="https://image2.jdomni.in/banner/13062021/3E/57/E8/1D6E23DD7E12571705CAC761E7_1623567977295.png?output-format=webp"
+                className="w-32 mb-3" />
+            </div>
+            <h2 className="title-font font-regular text-2xl text-gray-900">
+              . Affordable and Transparent Pricing
+            </h2>
+          </div>
+        </div>
+
+        <div className="p-4 md:w-1/4 sm:w-1/2">
+          <div className="px-4 py-6 transform transition duration-500 hover:scale-110">
+            <div className="flex justify-center">
+              <img
+                src="https://image3.jdomni.in/banner/13062021/16/7E/7E/5A9920439E52EF309F27B43EEB_1623568010437.png?output-format=webp"
+                className="w-32 mb-3" />
+            </div>
+            <h2 className="title-font font-regular text-2xl text-gray-900">
+              24/7 Availability
+            </h2>
+          </div>
+        </div>
+
+        <div className="p-4 md:w-1/4 sm:w-1/2">
+          <div className="px-4 py-6 transform transition duration-500 hover:scale-110">
+            <div className="flex justify-center">
+              <img
+                src="https://image3.jdomni.in/banner/13062021/EB/99/EE/8B46027500E987A5142ECC1CE1_1623567959360.png?output-format=webp"
+                className="w-32 mb-3" />
+            </div>
+            <h2 className="title-font font-regular text-2xl text-gray-900">
+              Experienced Doctors
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
       {/* Gallery Section */}
       <section className="py-20">
@@ -194,29 +221,29 @@ const App: React.FC = () => {
           <div className="grid md:grid-cols-4 gap-6">
             <div className="overflow-hidden rounded-lg">
               <img
-                src="https://public.readdy.ai/ai/img_res/e5c15b40eea528f902416b16011d652b.jpg"
-                alt="Pharmacy"
+                src="image/ambulanceG.jpg"
+                alt="Ambulance"
                 className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform"
               />
             </div>
             <div className="overflow-hidden rounded-lg">
               <img
-                src="https://public.readdy.ai/ai/img_res/5f27a9b15a50578a13e81b71f64e8b37.jpg"
+                src="/image/DG.jpg"
                 alt="Consultation"
                 className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform"
               />
             </div>
             <div className="overflow-hidden rounded-lg">
               <img
-                src="https://public.readdy.ai/ai/img_res/b54cb76185f4a48661f6581182c01c6f.jpg"
-                alt="Equipment"
+                src="/image/medicine1G.jpeg"
+                alt="Pharmacy"
                 className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform"
               />
             </div>
             <div className="overflow-hidden rounded-lg">
               <img
-                src="https://public.readdy.ai/ai/img_res/390c3fa98cd5ff7c9ab32a444f94f2fe.jpg"
-                alt="Ambulance"
+                src="/image/labG.png"
+                alt="Lab"
                 className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform"
               />
             </div>
@@ -232,24 +259,18 @@ const App: React.FC = () => {
           </h2>
           <div className="grid md:grid-cols-2 gap-12">
             <div className="rounded-xl overflow-hidden h-[400px]">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.991441291371!2d2.292292615509614!3d48.85837007928757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sEiffel%20Tower!5e0!3m2!1sen!2sus!4v1647891702753!5m2!1sen!2sus"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                loading="lazy"
-              ></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114086.59774953734!2d87.1827978486148!3d26.6738876309094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef6c66e80fbfa9%3A0x38094d1a7c974283!2sItahari!5e0!3m2!1sen!2snp!4v1741797811380!5m2!1sen!2snp" width="600" height="450" style={{border:0}} loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <div>
               <div className="mb-8">
                 <h3 className="text-xl font-semibold mb-4">Contact</h3>
-                <p className="text-gray-600 mb-2">Phone: +1 (555) 123-4567</p>
+                <p className="text-gray-600 mb-2">Phone: +977 9807373362</p>
                 <p className="text-gray-600 mb-2">Email: info@meddoc.com</p>
               </div>
               <div className="mb-8">
                 <h3 className="text-xl font-semibold mb-4">Our Address</h3>
-                <p className="text-gray-600">123 Healthcare Avenue</p>
-                <p className="text-gray-600">Medical District, NY 10001</p>
+                <p className="text-gray-600">Itahari-20, Sunsari</p>
+                <p className="text-gray-600">Medical Itahari District</p>
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-4">Hours</h3>
@@ -265,188 +286,6 @@ const App: React.FC = () => {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      {/* <footer className="bg-gray-900 text-white pt-20 pb-8">
-        <div className="max-w-[1440px] mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-12 mb-12">
-            <div>
-              <h3 className="text-xl font-semibold mb-6">Company</h3>
-              <ul className="space-y-3">
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white cursor-pointer"
-                  >
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white cursor-pointer"
-                  >
-                    Careers
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white cursor-pointer"
-                  >
-                    News
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-6">Services</h3>
-              <ul className="space-y-3">
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white cursor-pointer"
-                  >
-                    Consultations
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white cursor-pointer"
-                  >
-                    Health Packages
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white cursor-pointer"
-                  >
-                    Emergency
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-6">Helpful Links</h3>
-              <ul className="space-y-3">
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white cursor-pointer"
-                  >
-                    FAQs
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white cursor-pointer"
-                  >
-                    Support
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white cursor-pointer"
-                  >
-                    Terms
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-6">Quick Links</h3>
-              <ul className="space-y-3">
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white cursor-pointer"
-                  >
-                    Doctors
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white cursor-pointer"
-                  >
-                    Locations
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white cursor-pointer"
-                  >
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8 py-8 border-t border-gray-800">
-            <div className="flex gap-6">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white cursor-pointer"
-              >
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white cursor-pointer"
-              >
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white cursor-pointer"
-              >
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-white cursor-pointer"
-              >
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-            </div>
-            <p className="text-gray-400">
-              &copy; 2025 MedDoc. All rights reserved.
-            </p>
-          </div>
-        </div>
-
-        <div className="max-w-[1440px] mx-auto px-6 mt-12">
-          <div className="bg-gray-800 rounded-xl p-8 text-center">
-            <h3 className="text-2xl font-semibold mb-4">Keep Updated</h3>
-            <p className="text-gray-400 mb-6">
-              Never miss an latest updates and our exciting info for
-              personalized health tips and expert advice from our expertise
-              doctors.
-            </p>
-            <div className="flex gap-4 max-w-md mx-auto">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                // value={email}
-                // onChange={(e) => setEmail(e.target.value)}
-                className="bg-gray-700 border-gray-600 text-white"
-              />
-              <Button
-                // onClick={handleSubscribe}
-                className="!rounded-button whitespace-nowrap"
-              >
-                Subscribe
-              </Button>
-            </div>
-          </div>
-        </div>
-      </footer> */}
     </div>
   );
 };

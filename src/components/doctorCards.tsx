@@ -64,7 +64,7 @@ const doctors = [
   },
   {
     id: 4,
-    name: "Dr. James Wilson",
+    name: "Dr. Adit Tamang",
     specialty: "Orthopedic Surgeon",
     experience: "18 years",
     education: "MD, Yale University",

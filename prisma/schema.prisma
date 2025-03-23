@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql" // Change as needed (mysql, sqlite, etc.)
+  url      = env("DATABASE_URL")
+}
+
+model Doctor {
+  id             String   @id @default(uuid())
+  registrationNo String   @unique
+  firstName      String
+  lastName       String
+  email          String   @unique
+  phone          String
+  speciality     String
+  location       String
+  qualification  String
+  gender         String
+  description    String 
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  appointments   Appointment[]
+}
+
+model User {
+  id              String   @id @default(uuid())
+  fullName        String
+  email           String   @unique
+  password        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  appointments    Appointment[]
+  sessions        Session[]
+}
+
+model Appointment {
+  id         String   @id @default(uuid())
+  doctorId   String
+  userId     String
+  date       DateTime
+  status     String   @default("pending") // Can be "pending", "confirmed", "cancelled"
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  doctor     Doctor   @relation(fields: [doctorId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
