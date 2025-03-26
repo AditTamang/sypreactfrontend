@@ -70,13 +70,13 @@ export default async function AppointmentsPage() {
                     </span>
                   </div>
                   <div className="mt-4 flex space-x-2">
-                    <Link href={`/appointments/${appointment.id}`}>
+                    <Link href={`/appointment/${appointment.id}`}>
                       <Button variant="outline" size="sm">
                         View Details
                       </Button>
                     </Link>
                     {appointment.status !== "cancelled" && (
-                      <Link href={`/appointments/${appointment.id}/cancel`}>
+                      <Link href={`/appointment/${appointment.id}/cancel`}>
                         <Button variant="outline" size="sm" className="text-red-500 border-red-200 hover:bg-red-50">
                           Cancel
                         </Button>
@@ -131,7 +131,7 @@ export default async function AppointmentsPage() {
                     </span>
                   </div>
                   <div className="mt-4">
-                    <Link href={`/appointments/${appointment.id}`}>
+                    <Link href={`/appointment/${appointment.id}`}>
                       <Button variant="outline" size="sm">
                         View Details
                       </Button>

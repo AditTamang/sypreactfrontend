@@ -23,7 +23,7 @@ export async function registerUser(formData: UserFormData) {
     const existingUser = await prisma.user.findUnique({
       where: { email: formData.email },
     });
-
+  
     if (existingUser) {
       return { success: false, error: "Email already in use" };
     }
@@ -77,7 +77,7 @@ export async function loginUser(email: string, password: string) {
 
     return {
       success: true,
-      data: { id: user.id, fullName: user.fullName, email: user.email },
+      data: { id: user.id, role: user.role,  fullName: user.fullName, email: user.email },
     };
   } catch (error) {
     console.error("Failed to login:", error);
@@ -137,6 +137,20 @@ export async function deleteUser() {
     await logout();
 
     redirect("/");
+  } catch (error) {
+    console.error("Failed to delete user:", error);
+    return { success: false, error: "Failed to delete user" };
+  }
+}
+
+
+export async function deleteUserByIdByAdmin(id:string){
+  try {
+    await prisma.user.delete({
+      where: { id: id },
+    });
+    revalidatePath("/admin/users");
+    return { success: true };
   } catch (error) {
     console.error("Failed to delete user:", error);
     return { success: false, error: "Failed to delete user" };

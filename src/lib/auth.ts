@@ -73,6 +73,13 @@ export async function getCurrentUser() {
   const session = await getSession()
   return session?.user || null
 }
+export async function checkAdminStatus(){
+  const user = await getCurrentUser()
+  if(user && user.role === "ADMIN"){
+    return true
+  }
+  return false
+}
 
 export async function requireAuth() {
   const user = await getCurrentUser()

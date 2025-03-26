@@ -30,7 +30,7 @@ export async function createAppointment(formData: AppointmentFormData) {
       },
     })
 
-    revalidatePath("/appointments")
+    revalidatePath("/appointment")
     return { success: true, data: appointment }
   } catch (error) {
     console.error("Failed to create appointment:", error)
@@ -57,8 +57,8 @@ export async function updateAppointment(id: string, formData: Partial<Appointmen
       },
     })
 
-    revalidatePath("/appointments")
-    revalidatePath(`/appointments/${id}`)
+    revalidatePath("/appointment")
+    revalidatePath(`/appointment/${id}`)
     return { success: true, data: appointment }
   } catch (error) {
     console.error("Failed to update appointment:", error)
@@ -75,7 +75,7 @@ export async function deleteAppointment(id: string) {
       where: { id },
     })
 
-    revalidatePath("/appointments")
+    revalidatePath("/appointment")
     return { success: true }
   } catch (error) {
     console.error("Failed to delete appointment:", error)

@@ -104,7 +104,7 @@ export default function BookAppointmentPage() {
       })
 
       if (result.success) {
-        router.push("/appointments")
+        router.push("/appointment")
       } else {
         setError(result.error || "Failed to book appointment")
       }

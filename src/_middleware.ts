@@ -7,7 +7,9 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Define public routes that don't require authentication
-  const publicRoutes = ["/", "/login", "/register"]
+  const publicRoutes = ["/", "/login", "/register","/about","/faq","/package","/consultDoctor",
+    "/registerDoctor"
+  ]
   const isPublicRoute = publicRoutes.some((route) => pathname === route || pathname.startsWith("/api/"))
 
   // Redirect to login if accessing protected route without session
@@ -34,7 +36,7 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    "/((?!_next/static|_next/image|favicon.ico).*)",
+    '/((?!_next/static|_next/image|favicon.ico|public|image).*)',
   ],
 }
 

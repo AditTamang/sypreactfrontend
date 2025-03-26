@@ -9,7 +9,6 @@ import { getUserAppointments } from "@/action/appointment"
 
 export default async function Dashboard() {
   const user = await getCurrentUser()
-
   if (!user) {
     redirect("/login")
   }
@@ -67,7 +66,7 @@ export default async function Dashboard() {
                     </div>
                   </div>
                 ))}
-                <Link href="/appointments" className="block mt-4">
+                <Link href="/appointment" className="block mt-4">
                   <Button variant="outline" className="w-full">
                     View All Appointments
                   </Button>

@@ -1,23 +1,25 @@
-"use client"
 
-import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import * as echarts from 'echarts';
+import Graph from './_comp/graph';
+import { prisma } from "@/lib/prisma";
+import { getCurrentUser, requireAuth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-const App: React.FC = () => {
-  const [selectedTab, setSelectedTab] = useState('today');
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const doctor = {
-    name: 'Dr. Elizabeth Anderson',
-    specialty: 'Cardiologist',
-    image: 'https://public.readdy.ai/ai/img_res/eb51f88533def9da6f53fac0a16b5048.jpg'
-  };
+const App: React.FC =async() => {
+  // const [searchQuery, setSearchQuery] = useState('');
+const currentSession = await requireAuth()
+const doctor = await prisma.doctor.findUnique({where: {userId: currentSession.id}})
+if(!doctor) return redirect("/dashboard")
+  // const doctor = {
+  //   name: 'Dr. Elizabeth Anderson',
+  //   specialty: 'Cardiologist',
+  //   image: 'https://public.readdy.ai/ai/img_res/eb51f88533def9da6f53fac0a16b5048.jpg'
+  // };
 
   const appointments = [
     {
@@ -75,56 +77,7 @@ const App: React.FC = () => {
     }
   };
 
-  React.useEffect(() => {
-    const chartDom = document.getElementById('appointmentsChart');
-    if (chartDom) {
-      const myChart = echarts.init(chartDom);
-      const option = {
-        animation: false,
-        tooltip: {
-          trigger: 'item'
-        },
-        legend: {
-          top: '5%',
-          left: 'center'
-        },
-        series: [
-          {
-            name: 'Appointments',
-            type: 'pie',
-            radius: ['40%', '70%'],
-            avoidLabelOverlap: false,
-            itemStyle: {
-              borderRadius: 10,
-              borderColor: '#fff',
-              borderWidth: 2
-            },
-            label: {
-              show: false,
-              position: 'center'
-            },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: 20,
-                fontWeight: 'bold'
-              }
-            },
-            labelLine: {
-              show: false
-            },
-            data: [
-              { value: stats.confirmed, name: 'Confirmed' },
-              { value: stats.pending, name: 'Pending' },
-              { value: stats.cancelled, name: 'Cancelled' }
-            ]
-          }
-        ]
-      };
-      myChart.setOption(option);
-    }
-  }, []);
-
+console.log(doctor)
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -133,11 +86,11 @@ const App: React.FC = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Avatar className="h-12 w-12">
-                <img src={doctor.image} alt={doctor.name} className="object-cover" />
+                <img src={"https://public.readdy.ai/ai/img_res/eb51f88533def9da6f53fac0a16b5048.jpg"} alt={doctor?.firstName} className="object-cover" />
               </Avatar>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">{doctor.name}</h1>
-                <p className="text-gray-600">{doctor.specialty}</p>
+                <h1 className="text-2xl font-bold text-gray-900">{doctor?.firstName}</h1>
+                <p className="text-gray-600">{doctor?.speciality}</p>
               </div>
             </div>
             <div className="text-right">
@@ -179,19 +132,14 @@ const App: React.FC = () => {
 
         {/* Chart and Search Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="md:col-span-2">
-            <CardContent className="p-6">
-              <h2 className="text-lg font-semibold mb-4">Appointments Overview</h2>
-              <div id="appointmentsChart" style={{ height: '300px' }}></div>
-            </CardContent>
-          </Card>
+          <Graph/>
           <Card>
             <CardContent className="p-6">
               <h2 className="text-lg font-semibold mb-4">Quick Search</h2>
               <Input
                 placeholder="Search appointments..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                // value={searchQuery}
+                // onChange={(e) => setSearchQuery(e.target.value)}
                 className="mb-4"
               />
               <div className="space-y-2">

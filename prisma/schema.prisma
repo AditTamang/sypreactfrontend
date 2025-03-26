@@ -18,36 +18,47 @@ model Doctor {
   location       String
   qualification  String
   gender         String
-  description    String 
+  description    String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  appointments   Appointment[]
+  appointments Appointment[]
 }
 
 model User {
-  id              String   @id @default(uuid())
-  fullName        String
-  email           String   @unique
-  password        String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id        String   @id @default(uuid())
+  fullName  String
+  email     String   @unique
+  password  String
+  role      UserRole @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  appointments    Appointment[]
-  sessions        Session[]
+  appointments Appointment[]
+  sessions     Session[]
+
+  Doctor Doctor[]
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  DOCTOR
 }
 
 model Appointment {
-  id         String   @id @default(uuid())
-  doctorId   String
-  userId     String
-  date       DateTime
-  status     String   @default("pending") // Can be "pending", "confirmed", "cancelled"
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        String   @id @default(uuid())
+  doctorId  String
+  userId    String
+  date      DateTime
+  status    String   @default("pending") // Can be "pending", "confirmed", "cancelled"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  doctor     Doctor   @relation(fields: [doctorId], references: [id])
-  user       User     @relation(fields: [userId], references: [id])
+  doctor Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Session {
@@ -56,6 +67,18 @@ model Session {
   token     String   @unique
   expiresAt DateTime
   createdAt DateTime @default(now())
-  
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model HealthPackage {
+  id              Int      @id @default(autoincrement())
+  title           String
+  description     String
+  originalPrice   Float
+  discountedPrice Float
+  features        String
+  image           String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
